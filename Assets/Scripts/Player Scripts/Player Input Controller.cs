@@ -4,9 +4,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputController : MonoBehaviour
 {
-    public Vector2 MovementInputVector {  get; private set; }
+    public Vector2 MovementInputVector { get; private set; }
     public event Action OnJumpButtonPressed;
     public Vector2 LookInputVector { get; private set; }
+    public event Action OnCrouchButtonPressed;
+    public Vector3 mouseDelta { get; private set; }
+    public bool isKeyboardAndMouse { get; private set; } = true;
+
 
     private void OnMove(InputValue inputValue)
     {
@@ -24,4 +28,13 @@ public class PlayerInputController : MonoBehaviour
         LookInputVector = inputValue.Get<Vector2>();
     }
 
+    private void OnCrouch(InputValue inputValue)
+    {
+        if (inputValue.isPressed)
+        {
+            OnCrouchButtonPressed?.Invoke();
+        }
+    }
+    
+ 
 }
