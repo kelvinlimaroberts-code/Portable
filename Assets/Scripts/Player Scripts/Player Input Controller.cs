@@ -10,6 +10,7 @@ public class PlayerInputController : MonoBehaviour
     public event Action OnCrouchButtonPressed;
     public Vector3 mouseDelta { get; private set; }
     public bool isKeyboardAndMouse { get; private set; } = true;
+    public event Action OnInteractButtonPressed;
 
 
     private void OnMove(InputValue inputValue)
@@ -36,5 +37,13 @@ public class PlayerInputController : MonoBehaviour
         }
     }
     
+    private void OnInteract(InputValue inputValue)
+    {
+        if(inputValue.isPressed)
+        {
+            OnInteractButtonPressed?.Invoke();
+            Debug.Log("interact button pressed");
+        }
+    }
  
 }
