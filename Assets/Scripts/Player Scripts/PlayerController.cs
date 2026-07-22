@@ -25,6 +25,16 @@ public class PlayerController : MonoBehaviour
     public float crouchingHeight = 1f;
     public Vector3 standingCameraPos;
     public Vector3 crouchingCameraPos;
+
+    //interacting
+    [Header("interacting")]
+    public Transform _interactionArea; //the transform that the player uses to reach and interact with objects
+    public PickUp? currentHeldPickUp;
+    [SerializeField] private string holdableObjectTag;  //the tag that interactables will have
+    [SerializeField] private float _interactionLatencyDelay = 0.15f; //a slight delay to allow some leniency to make interacting easier
+    private bool _interactButtonPressed = false;
+    private bool _itemIsBeingHeld = false;
+
     //camera
     [Header("camera")]
     public Transform Head;
@@ -38,6 +48,8 @@ public class PlayerController : MonoBehaviour
     public bool isWalking { get; private set; } = false;
     public bool isCrouching { get; private set; } = false;
     private bool prevWalkingState = false;
+
+
 
 
     private void clamp(ref float value, float min, float max)  // have to put ref infront of variable to call
@@ -62,6 +74,7 @@ public class PlayerController : MonoBehaviour
         //moving
         _playerInputController.OnJumpButtonPressed += JumpButtonPressed;  //subscribing to the onjumpbuttonpressed event in the input controller script
         _playerInputController.OnCrouchButtonPressed += CrouchButtonPressed;  //subscribe to crouch event
+        _playerInputController.OnInteractButtonPressed += InteractButtonPressed; //subscribe to interact event
         //cam
         Cursor.lockState = CursorLockMode.Locked;  //lock cursor to center of screen
     }
@@ -167,7 +180,6 @@ public class PlayerController : MonoBehaviour
         StateChange?.Invoke();
         toggleCrouch();
     }
-
     private void toggleCrouch()
     {
         if (isCrouching) //crouching
@@ -195,11 +207,44 @@ public class PlayerController : MonoBehaviour
             Head.localPosition = standingCameraPos;
         }
     }
-
     private void SetCapsuleDimensions(float height)
     {
         _capsuleCollider.height = height;
         _capsuleCollider.center = new Vector3(0, height/2, 0);
     }
 
+    private void InteractButtonPressed()
+    {
+        if(_itemIsBeingHeld)
+        {
+            currentHeldPickUp.BeingHeld(false, null); //revert rigid body physics
+            _itemIsBeingHeld = false;
+            //currentHeldPickUp = null;
+        }
+        else
+        {
+            //want to pick up item
+            _interactButtonPressed = true;
+            Invoke(nameof(DeactivateInteraction), _interactionLatencyDelay);
+        }
+    }
+    private void DeactivateInteraction()
+    {
+        _interactButtonPressed = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (_interactButtonPressed)
+        {
+            Debug.Log("wants to be held");
+            if (other.gameObject.CompareTag(holdableObjectTag))
+            {
+                _itemIsBeingHeld = true;
+                //other.transform.SetParent(_interactionArea);
+                currentHeldPickUp = other.gameObject.GetComponent<PickUp>();
+                currentHeldPickUp.BeingHeld(true, _interactionArea);   //turn off certain physics so it acts like it's held
+            }
+        }
+    }
 }
