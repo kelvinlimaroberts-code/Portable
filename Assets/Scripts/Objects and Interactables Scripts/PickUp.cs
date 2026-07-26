@@ -44,4 +44,9 @@ public class PickUp : MonoBehaviour
             this.transform.rotation = heldPosition.rotation;
         }
     }
+
+    public void EditLinearMomentum(Vector3 newDir)
+    {
+        _rigidbody.linearVelocity = newDir * (_rigidbody.linearVelocity.x + _rigidbody.linearVelocity.y + _rigidbody.linearVelocity.z);
+    }
 }

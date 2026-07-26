@@ -154,10 +154,7 @@ public class PlayerController : MonoBehaviour
 
     public void EditLinearMomentum(Vector3 newDir)
     {
-        //calculating the distance from the top of, to the direct centre bottom of a triangular based pyramid 
-        float forwardMomentum = (calculatedLinearVelocity.x + calculatedLinearVelocity.z) / Mathf.Sqrt(calculatedLinearVelocity.x * calculatedLinearVelocity.x + calculatedLinearVelocity.z + calculatedLinearVelocity.z);
-        float totalMomentum = (forwardMomentum + calculatedLinearVelocity.y) / Mathf.Sqrt(forwardMomentum * forwardMomentum + calculatedLinearVelocity.y * calculatedLinearVelocity.y);
-        _rigidbody.linearVelocity = newDir * totalMomentum;
+        _rigidbody.linearVelocity = newDir * (calculatedLinearVelocity.x + calculatedLinearVelocity.y + calculatedLinearVelocity.z);
     }
 
     private void JumpButtonPressed()
@@ -241,7 +238,6 @@ public class PlayerController : MonoBehaviour
             if (other.gameObject.CompareTag(holdableObjectTag))
             {
                 _itemIsBeingHeld = true;
-                //other.transform.SetParent(_interactionArea);
                 currentHeldPickUp = other.gameObject.GetComponent<PickUp>();
                 currentHeldPickUp.BeingHeld(true, _interactionArea);   //turn off certain physics so it acts like it's held
             }

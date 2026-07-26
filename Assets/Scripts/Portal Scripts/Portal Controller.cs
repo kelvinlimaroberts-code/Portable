@@ -41,9 +41,16 @@ public class PortalController : MonoBehaviour
                 //alter momentum to be in the new direction
                 FindFirstObjectByType<PlayerController>().EditLinearMomentum(_purplePortalInput.TeleportSpot.transform.forward);
             }
-            else
+            else if(_yellowPortalInput.affectedObject.tag == "PickUp")
             {
                 //change rotation of object normally
+                _yellowPortalInput.affectedObject.transform.rotation = _purplePortalInput.TeleportSpot.transform.rotation;
+                //conserve momentum using pick up script
+                _yellowPortalInput.affectedObject.GetComponent<PickUp>().EditLinearMomentum(_purplePortalInput.TeleportSpot.transform.forward);
+            }
+            else
+            {
+                //just change rotation of object normally
                 _yellowPortalInput.affectedObject.transform.rotation = _purplePortalInput.TeleportSpot.transform.rotation;
             }
         }
@@ -74,9 +81,16 @@ public class PortalController : MonoBehaviour
                 //alter momentum to be in the new direction
                 FindFirstObjectByType<PlayerController>().EditLinearMomentum(_yellowPortalInput.TeleportSpot.transform.forward);
             }
-            else
+            else if (_purplePortalInput.affectedObject.tag == "PickUp")
             {
                 //change rotation of object normally
+                _purplePortalInput.affectedObject.transform.rotation = _yellowPortalInput.TeleportSpot.transform.rotation;
+                //conserve momentum using pick up script
+                _purplePortalInput.affectedObject.GetComponent<PickUp>().EditLinearMomentum(_yellowPortalInput.TeleportSpot.transform.forward);
+            }
+            else
+            {
+                //just change rotation of object normally
                 _purplePortalInput.affectedObject.transform.rotation = _yellowPortalInput.TeleportSpot.transform.rotation;
             }
         }
