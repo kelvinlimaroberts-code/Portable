@@ -213,14 +213,12 @@ public class PlayerController : MonoBehaviour
     {
         if(_pickupIsBeingHeld)
         {
-            Debug.Log("dropping item");
             //drop item
             _currentPickup.BeingHeld(false, null); //revert rigid body physics
             _pickupIsBeingHeld = false;
         }
         else if(_currentlyLookingAtPickup)
         {
-            Debug.Log("picking up item");
             //want to pick up item
             _pickupIsBeingHeld = true;
             _currentPickup.BeingHeld(true, _interactionArea);   //turn off certain physics so it acts like it's held
@@ -233,7 +231,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag(holdableObjectTag) && !_pickupIsBeingHeld)
         {
-            Debug.Log("looking at item");
             _currentlyLookingAtPickup = true;
             _currentPickup = other.gameObject.GetComponent<PickUp>();
         }
@@ -243,7 +240,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag(holdableObjectTag) && !_pickupIsBeingHeld)
         {
-            Debug.Log("looking away from item");
             _currentlyLookingAtPickup = false;
         }
     }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PlayerInteraction
   - PickUp
+  - BloodWoodWall
+  - StoneWall
   layers:
   - Default
   - TransparentFX

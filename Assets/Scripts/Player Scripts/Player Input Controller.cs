@@ -11,6 +11,8 @@ public class PlayerInputController : MonoBehaviour
     public Vector3 mouseDelta { get; private set; }
     public bool isKeyboardAndMouse { get; private set; } = true;
     public event Action OnInteractButtonPressed;
+    public event Action OnYellowPortalShot;
+    public event Action OnPurplePortalShot;
 
 
     private void OnMove(InputValue inputValue)
@@ -45,4 +47,19 @@ public class PlayerInputController : MonoBehaviour
         }
     }
  
+    private void OnYellowPortal(InputValue inputValue)
+    {
+        if (inputValue.isPressed)
+        {
+            OnYellowPortalShot?.Invoke();
+        }
+    }
+
+    private void OnPurplePortal(InputValue inputValue)
+    {
+        if (inputValue.isPressed)
+        {
+            OnPurplePortalShot?.Invoke();
+        }
+    }
 }
