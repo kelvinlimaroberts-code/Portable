@@ -29,10 +29,9 @@ public class PlayerController : MonoBehaviour
     //interacting
     [Header("interacting")]
     public Transform _interactionArea; //the transform that the player uses to reach and interact with objects
-    public PickUp? currentHeldPickUp;
     [SerializeField] private string holdableObjectTag;  //the tag that interactables will have
-    [SerializeField] private float _interactionLatencyDelay = 0.15f; //a slight delay to allow some leniency to make interacting easier
-    private bool _interactButtonPressed = false;
+    private PickUp? _currentPickup;
+    private bool _currentlyLookingAtPickup = false;
     private bool _itemIsBeingHeld = false;
 
     //camera
@@ -214,33 +213,34 @@ public class PlayerController : MonoBehaviour
     {
         if(_itemIsBeingHeld)
         {
-            currentHeldPickUp.BeingHeld(false, null); //revert rigid body physics
+            //drop item
+            _currentPickup.BeingHeld(false, null); //revert rigid body physics
             _itemIsBeingHeld = false;
-            //currentHeldPickUp = null;
         }
-        else
+        else if(_currentlyLookingAtPickup)
         {
             //want to pick up item
-            _interactButtonPressed = true;
-            Invoke(nameof(DeactivateInteraction), _interactionLatencyDelay);
+            _itemIsBeingHeld = true;
+            _currentPickup.BeingHeld(true, _interactionArea);   //turn off certain physics so it acts like it's held
+            
         }
     }
-    private void DeactivateInteraction()
-    {
-        _interactButtonPressed = false;
-    }
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_interactButtonPressed)
+        if (other.gameObject.CompareTag(holdableObjectTag))
         {
-            Debug.Log("wants to be held");
-            if (other.gameObject.CompareTag(holdableObjectTag))
-            {
-                _itemIsBeingHeld = true;
-                currentHeldPickUp = other.gameObject.GetComponent<PickUp>();
-                currentHeldPickUp.BeingHeld(true, _interactionArea);   //turn off certain physics so it acts like it's held
-            }
+            _currentlyLookingAtPickup = true;
+            _currentPickup = other.gameObject.GetComponent<PickUp>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag(holdableObjectTag))
+        {
+            _currentlyLookingAtPickup = false;
         }
     }
 }

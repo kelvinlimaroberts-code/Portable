@@ -27,11 +27,11 @@ public class PortalController : MonoBehaviour
         {
             //teleport to purple 
             purpleCanTeleport = false; //prevent constant swap
-            //change position
-            _yellowPortalInput.affectedObject.transform.position = _purplePortalInput.TeleportSpot.transform.position; //change position of object
-            
             if (_yellowPortalInput.affectedObject.tag == "Player")
             {
+                //change position
+                _yellowPortalInput.affectedObject.transform.position = _purplePortalInput.TeleportSpot.transform.position; //change position of object
+
                 //change rotation of player like this, to be intergrated with the cam/head rotation system
                 Vector3 PortRot;
                 PortRot.x = _purplePortalInput.TeleportSpot.transform.eulerAngles.x;
@@ -43,15 +43,13 @@ public class PortalController : MonoBehaviour
             }
             else if(_yellowPortalInput.affectedObject.tag == "PickUp")
             {
+                //change position
+                _yellowPortalInput.affectedObject.transform.position = _purplePortalInput.TeleportSpot.transform.position; //change position of object
+
                 //change rotation of object normally
                 _yellowPortalInput.affectedObject.transform.rotation = _purplePortalInput.TeleportSpot.transform.rotation;
                 //conserve momentum using pick up script
                 _yellowPortalInput.affectedObject.GetComponent<PickUp>().EditLinearMomentum(_purplePortalInput.TeleportSpot.transform.forward);
-            }
-            else
-            {
-                //just change rotation of object normally
-                _yellowPortalInput.affectedObject.transform.rotation = _purplePortalInput.TeleportSpot.transform.rotation;
             }
         }
     }
@@ -67,11 +65,12 @@ public class PortalController : MonoBehaviour
         {
             //teleport to yellow 
             yellowCanTeleport = false; //prevent constant swap
-            //change position
-            _purplePortalInput.affectedObject.transform.position = _yellowPortalInput.TeleportSpot.transform.position; //change position
-            
+
             if (_purplePortalInput.affectedObject.tag == "Player")
             {
+                //change position
+                _purplePortalInput.affectedObject.transform.position = _yellowPortalInput.TeleportSpot.transform.position; //change position
+
                 //change rotation of player like this, to be intergrated with the cam/head rotation system
                 Vector3 PortRot;
                 PortRot.x = _yellowPortalInput.TeleportSpot.transform.eulerAngles.x;
@@ -83,15 +82,13 @@ public class PortalController : MonoBehaviour
             }
             else if (_purplePortalInput.affectedObject.tag == "PickUp")
             {
+                //change position
+                _purplePortalInput.affectedObject.transform.position = _yellowPortalInput.TeleportSpot.transform.position; //change position
+
                 //change rotation of object normally
                 _purplePortalInput.affectedObject.transform.rotation = _yellowPortalInput.TeleportSpot.transform.rotation;
                 //conserve momentum using pick up script
                 _purplePortalInput.affectedObject.GetComponent<PickUp>().EditLinearMomentum(_yellowPortalInput.TeleportSpot.transform.forward);
-            }
-            else
-            {
-                //just change rotation of object normally
-                _purplePortalInput.affectedObject.transform.rotation = _yellowPortalInput.TeleportSpot.transform.rotation;
             }
         }
     }

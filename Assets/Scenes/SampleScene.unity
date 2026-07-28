@@ -934,9 +934,7 @@ MonoBehaviour:
   standingCameraPos: {x: -0.021, y: 1.679, z: 0.046}
   crouchingCameraPos: {x: -0.03, y: 1.14, z: 0.3}
   _interactionArea: {fileID: 1646886004}
-  currentHeldPickUp: {fileID: 0}
   holdableObjectTag: PickUp
-  _interactionLatencyDelay: 0.15
   Head: {fileID: 972800678}
   controllerSens: 1.5
   mouseSens: 1.48
@@ -1414,7 +1412,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1039756867928981486
 PrefabInstance:
