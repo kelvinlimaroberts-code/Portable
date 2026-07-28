@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private string holdableObjectTag;  //the tag that interactables will have
     private PickUp? _currentPickup;
     private bool _currentlyLookingAtPickup = false;
-    private bool _itemIsBeingHeld = false;
+    private bool _pickupIsBeingHeld = false;
 
     //camera
     [Header("camera")]
@@ -211,16 +211,18 @@ public class PlayerController : MonoBehaviour
 
     private void InteractButtonPressed()
     {
-        if(_itemIsBeingHeld)
+        if(_pickupIsBeingHeld)
         {
+            Debug.Log("dropping item");
             //drop item
             _currentPickup.BeingHeld(false, null); //revert rigid body physics
-            _itemIsBeingHeld = false;
+            _pickupIsBeingHeld = false;
         }
         else if(_currentlyLookingAtPickup)
         {
+            Debug.Log("picking up item");
             //want to pick up item
-            _itemIsBeingHeld = true;
+            _pickupIsBeingHeld = true;
             _currentPickup.BeingHeld(true, _interactionArea);   //turn off certain physics so it acts like it's held
             
         }
@@ -229,8 +231,9 @@ public class PlayerController : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag(holdableObjectTag))
+        if (other.gameObject.CompareTag(holdableObjectTag) && !_pickupIsBeingHeld)
         {
+            Debug.Log("looking at item");
             _currentlyLookingAtPickup = true;
             _currentPickup = other.gameObject.GetComponent<PickUp>();
         }
@@ -238,8 +241,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag(holdableObjectTag))
+        if (other.gameObject.CompareTag(holdableObjectTag) && !_pickupIsBeingHeld)
         {
+            Debug.Log("looking away from item");
             _currentlyLookingAtPickup = false;
         }
     }
