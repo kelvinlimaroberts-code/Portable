@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider _capsuleCollider;
     private Vector3 moveDir = Vector3.forward;
     private Vector3 calculatedLinearVelocity;
+    [SerializeField] private float maxVelocity = 100f;
     //crouching
     [Header("crouching")]
     public float standingHeight = 2f;
@@ -142,6 +143,7 @@ public class PlayerController : MonoBehaviour
             calculatedLinearVelocity.y = jumpYPwr;
             _jumpTriggered = false;
         }
+        capLinearMomentum();
         _rigidbody.linearVelocity = calculatedLinearVelocity; //applying calculatedLinearVelocity
     }
 
@@ -149,11 +151,22 @@ public class PlayerController : MonoBehaviour
     {
         additionalRotation.x = xIncrease;
         additionalRotation.y = yIncrease;
+        Debug.Log("xIncrease:" + xIncrease + " yIncrease:" + yIncrease);
     }
 
     public void EditLinearMomentum(Vector3 newDir)
     {
+        calculatedLinearVelocity.x = Mathf.Sqrt(calculatedLinearVelocity.x * calculatedLinearVelocity.x);
+        calculatedLinearVelocity.y = Mathf.Sqrt(calculatedLinearVelocity.y * calculatedLinearVelocity.y);
+        calculatedLinearVelocity.z = Mathf.Sqrt(calculatedLinearVelocity.z * calculatedLinearVelocity.z);
+        capLinearMomentum();
         _rigidbody.linearVelocity = newDir * (calculatedLinearVelocity.x + calculatedLinearVelocity.y + calculatedLinearVelocity.z);
+    }
+    private void capLinearMomentum()
+    {
+        clamp(ref calculatedLinearVelocity.x, -maxVelocity, maxVelocity);
+        clamp(ref calculatedLinearVelocity.y, -maxVelocity, maxVelocity);
+        clamp(ref calculatedLinearVelocity.z, -maxVelocity, maxVelocity);
     }
 
     private void JumpButtonPressed()
@@ -225,8 +238,6 @@ public class PlayerController : MonoBehaviour
             
         }
     }
-
-    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag(holdableObjectTag) && !_pickupIsBeingHeld)
@@ -235,7 +246,6 @@ public class PlayerController : MonoBehaviour
             _currentPickup = other.gameObject.GetComponent<PickUp>();
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag(holdableObjectTag) && !_pickupIsBeingHeld)

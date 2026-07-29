@@ -9,6 +9,7 @@ public class PickUp : MonoBehaviour
     public LayerMask playerLayer;
     private bool _isHeld = false;
     private Transform heldPosition;
+    private Vector3 calculatedLinearVelocity = new Vector3(0, 0, 0);
 
     void Awake()
     {
@@ -47,6 +48,10 @@ public class PickUp : MonoBehaviour
 
     public void EditLinearMomentum(Vector3 newDir)
     {
-        _rigidbody.linearVelocity = newDir * (_rigidbody.linearVelocity.x + _rigidbody.linearVelocity.y + _rigidbody.linearVelocity.z);
+        calculatedLinearVelocity = _rigidbody.linearVelocity;
+        calculatedLinearVelocity.x = Mathf.Sqrt(calculatedLinearVelocity.x * calculatedLinearVelocity.x);
+        calculatedLinearVelocity.y = Mathf.Sqrt(calculatedLinearVelocity.y * calculatedLinearVelocity.y);
+        calculatedLinearVelocity.z = Mathf.Sqrt(calculatedLinearVelocity.z * calculatedLinearVelocity.z);
+        _rigidbody.linearVelocity = newDir * (calculatedLinearVelocity.x + calculatedLinearVelocity.y + calculatedLinearVelocity.z);
     }
 }
