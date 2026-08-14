@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 951881172978568741}
   - component: {fileID: 7254601461921810424}
+  - component: {fileID: 8826932247384219705}
   m_Layer: 0
   m_Name: Portal Controller
   m_TagString: Untagged
@@ -48,6 +49,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortalController
   yellowPortal: {fileID: 5552925257475035467}
   purplePortal: {fileID: 5760639027604165985}
+--- !u!114 &8826932247384219705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131917494008876345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f44277328c25e542bd3e92dd638a685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PortalTextureSetup
+  yellowCam: {fileID: 7181967414195410098}
+  purpleCam: {fileID: 7013630719474618520}
+  yellowDisplayMat: {fileID: 2100000, guid: 1faa47dea735fbd4ebf01b86c135bf19, type: 2}
+  purpleDisplayMat: {fileID: 2100000, guid: c3378020ef9677b4991a10dc6a9c9faf, type: 2}
 --- !u!1001 &3035516750084273044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96,6 +113,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5437315469353165580, guid: aa91337c58734744b83df3705ec28ba1, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 8400000, guid: c6b948ba1af1ed34682507d515d2c733, type: 2}
     - target: {fileID: 6013904261641712137, guid: aa91337c58734744b83df3705ec28ba1, type: 3}
       propertyPath: destinationPortal
       value: 
@@ -104,6 +125,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Purple Portal
       objectReference: {fileID: 0}
+    - target: {fileID: 7608559129396451963, guid: aa91337c58734744b83df3705ec28ba1, type: 3}
+      propertyPath: thisPortal
+      value: 
+      objectReference: {fileID: 452639374558698281}
+    - target: {fileID: 7608559129396451963, guid: aa91337c58734744b83df3705ec28ba1, type: 3}
+      propertyPath: otherPortal
+      value: 
+      objectReference: {fileID: 339471644813434627}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -119,6 +148,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7336844048060933877, guid: aa91337c58734744b83df3705ec28ba1, type: 3}
   m_PrefabInstance: {fileID: 3035516750084273044}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &7013630719474618520 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5437315469353165580, guid: aa91337c58734744b83df3705ec28ba1, type: 3}
+  m_PrefabInstance: {fileID: 3035516750084273044}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8326376630585367385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,6 +165,18 @@ PrefabInstance:
       propertyPath: destinationPortal
       value: 
       objectReference: {fileID: 5760639027604165985}
+    - target: {fileID: 1163690265566498795, guid: 5ab675cf7ecc8ec468619ca1ecc316cb, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 8400000, guid: 36e4d6fea776363459e9d766d359fb88, type: 2}
+    - target: {fileID: 3658175836308698780, guid: 5ab675cf7ecc8ec468619ca1ecc316cb, type: 3}
+      propertyPath: thisPortal
+      value: 
+      objectReference: {fileID: 339471644813434627}
+    - target: {fileID: 3658175836308698780, guid: 5ab675cf7ecc8ec468619ca1ecc316cb, type: 3}
+      propertyPath: otherPortal
+      value: 
+      objectReference: {fileID: 452639374558698281}
     - target: {fileID: 4504390691228453394, guid: 5ab675cf7ecc8ec468619ca1ecc316cb, type: 3}
       propertyPath: m_Name
       value: Yellow Portal
@@ -188,5 +234,10 @@ Transform:
 --- !u!1 &5552925257475035467 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4504390691228453394, guid: 5ab675cf7ecc8ec468619ca1ecc316cb, type: 3}
+  m_PrefabInstance: {fileID: 8326376630585367385}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &7181967414195410098 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1163690265566498795, guid: 5ab675cf7ecc8ec468619ca1ecc316cb, type: 3}
   m_PrefabInstance: {fileID: 8326376630585367385}
   m_PrefabAsset: {fileID: 0}

@@ -10,12 +10,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1988349508677816358, guid: 833224af843752843b9a1dcd0404e08b, type: 3}
       propertyPath: m_Name
-      value: Yellow Portal Variant
+      value: Yellow Portal
       objectReference: {fileID: 0}
-    - target: {fileID: 5215042151423688063, guid: 833224af843752843b9a1dcd0404e08b, type: 3}
+    - target: {fileID: 3900295981499246526, guid: 833224af843752843b9a1dcd0404e08b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 54cf79b74d7ee6f4b97e193e37daea37, type: 2}
+    - target: {fileID: 4587404790335938789, guid: 833224af843752843b9a1dcd0404e08b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1faa47dea735fbd4ebf01b86c135bf19, type: 2}
+    - target: {fileID: 5215042151423688063, guid: 833224af843752843b9a1dcd0404e08b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1faa47dea735fbd4ebf01b86c135bf19, type: 2}
     - target: {fileID: 5918282860131016302, guid: 833224af843752843b9a1dcd0404e08b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.39
