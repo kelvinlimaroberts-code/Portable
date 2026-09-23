@@ -912,7 +912,7 @@ MonoBehaviour:
   _interactionArea: {fileID: 1646886004}
   holdableObjectTag: PickUp
   Head: {fileID: 972800678}
-  controllerSens: 1.5
+  controllerSens: 1.29
   mouseSens: 2.92
 --- !u!54 &1076131690
 Rigidbody:

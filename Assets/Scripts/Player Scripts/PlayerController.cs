@@ -151,7 +151,6 @@ public class PlayerController : MonoBehaviour
     {
         additionalRotation.x = xIncrease;
         additionalRotation.y = yIncrease;
-        Debug.Log("xIncrease:" + xIncrease + " yIncrease:" + yIncrease);
     }
 
     public void EditLinearMomentum(Vector3 newDir)
